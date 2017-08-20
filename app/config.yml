@@ -1,0 +1,61 @@
+imports:
+    - { resource: parameters.yml }
+
+github:
+  authentication:
+    token_or_login: '%github_authentication_token_or_login%'
+    password_or_secret: '%github_authentication_password_or_secret%'
+    method: '%github_authentication_method%'
+
+parameters:
+  repositories:
+    - Emby:
+      rules:
+        - by: title
+          exact:
+            - Dev
+            - Beta
+          actions:
+            - unsubscribe
+            - mark-as-read
+    - home-assistant:
+      rules:
+        - by: title
+          words:
+            - london_air
+            - spotify
+            - prowl
+            - egardia
+            - usps
+            - wemo
+            - rflink
+            - pilight
+            - xbox
+            - ffmpeg
+            - nuimo
+            - onkyo
+            - tradfri
+            - yeelight
+            - rainmachine
+            - foscam
+            - xiaomi
+            - honeywell
+            - directv
+            - buienradar
+            - mpd
+            - isy
+            - kevo
+            - pushbullet
+            - modbus
+            - abode
+            - geizhals
+            - fitbit
+            - russound
+            - miflora
+            - flora
+            - telegram
+            - docker
+            - pushover
+          actions:
+            - unsubscribe
+            - mark-as-read

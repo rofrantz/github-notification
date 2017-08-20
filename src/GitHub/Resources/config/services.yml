@@ -1,0 +1,32 @@
+services:
+    gihub_api_client:
+        class: Github\Client
+        calls:
+           - [
+                authenticate, [
+                  '%github.authentication.token_or_login%',
+                  '%github.authentication.password_or_secret%',
+                  '%github.authentication.method%'
+                ]
+             ]
+
+    notifications_service:
+        class: GitHub\Service\NotificationService
+        arguments: ['@gihub_api_client']
+
+    # commands
+    list:
+        class: Symfony\Component\Console\Command\ListCommand
+        tags: ['console.command']
+
+    help:
+        class: Symfony\Component\Console\Command\HelpCommand
+        tags: ['console.command']
+
+    notifications_list_command:
+        class: GitHub\Command\NotificationsListCommand
+        tags: ['console.command']
+
+    notifications_process_command:
+        class: GitHub\Command\NotificationsProcessCommand
+        tags: ['console.command']

@@ -1,0 +1,17 @@
+{
+    "name": "frantz/github",
+    "license": "proprietary",
+    "type": "project",
+    "autoload": {
+        "psr-4": { "": "src/" }
+    },
+    "require": {
+        "php": ">=5.5.9",
+        "knplabs/github-api": "^2.5",
+        "php-http/guzzle6-adapter": "^1.1",
+        "symfony/config": "^3.3",
+        "symfony/console": "^3.3",
+        "symfony/dependency-injection": "^3.3",
+        "symfony/yaml": "^3.3"
+    }
+}

@@ -1,0 +1,42 @@
+parameters:
+  # configure this depending on type of authentication you prefere
+  # @see README for more details
+  github_authentication_token_or_login: YOUR_GITHUB_PERSONAL_TOKEN
+  github_authentication_password_or_secret: YOUR_GITHUB_PASSWORD_OR_SECRET
+  github_authentication_method: http_token
+
+  repositories:
+    # these rules will be applied to all your notifications from all repositories
+    - all:
+      rules:
+
+        # filter by title
+        - by: title
+
+          # which contain one of the following words
+          words:
+            - spotify
+            - prowl
+
+          # and if matches are found apply the following actions
+          actions:
+            - unsubscribe
+            - mark-as-read
+
+    # these rules will be applied to a single repository
+    # make sure you specify the short repository name, eg: Emby
+    - other-repository:
+      rules:
+        - by: title
+          words:
+            - ios
+            - apple
+          actions:
+            - mark-as-read
+
+        # another filter by title for the same repository with different words and actions
+        - by: title
+          words:
+            - another-word
+          actions:
+            - unsubscribe
