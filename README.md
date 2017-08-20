@@ -16,7 +16,7 @@ php bin/console github:notifications:process
 The following packages are required to be installed on your system:
 - git
 - php 7
-- [composer(https://getcomposer.org/download/)
+- [composer](https://getcomposer.org/download/)
 - make
 
 ## Installation
