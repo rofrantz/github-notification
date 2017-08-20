@@ -23,7 +23,7 @@ The following packages are required to be installed on your system:
 
 After cloning the repository you should be able to launch the command below:
 ```bash
-make install
+make build
 ```
 
 ## Settings
