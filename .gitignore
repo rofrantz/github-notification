@@ -1,2 +1,2 @@
 /vendor/
-/config/parameters.yml
+app/parameters.yml
