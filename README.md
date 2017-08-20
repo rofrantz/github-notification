@@ -1,4 +1,4 @@
-#github-notification-processor
+# github-notification-processor
 
 
 Do you follow different repositories which are updated very often on GitHub leaving you with a lot of unread notifications ?
