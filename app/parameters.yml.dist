@@ -18,6 +18,14 @@ parameters:
             - spotify
             - prowl
 
+          # which contain one of these exact strings
+          exact:
+            - some-string
+
+          # which contain a regular expression string
+          regexp:
+            - ^nimic$
+
           # and if matches are found apply the following actions
           actions:
             - unsubscribe

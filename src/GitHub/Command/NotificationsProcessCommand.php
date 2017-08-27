@@ -79,7 +79,8 @@ class NotificationsProcessCommand extends BaseCommand
 
                     if (
                         (isset($rule['words']) && $this->filterFieldByWords($field, $rule['words'])) ||
-                        (isset($rule['exact']) && in_array($field, $rule['exact']))
+                        (isset($rule['exact']) && in_array($field, $rule['exact'])) ||
+                        (isset($rule['regexp']) && $this->filterFieldByRegexp($field, $rule['regexp']))
                     ) {
                         foreach ($rule['actions'] as $action) {
                             $actions[] = $action;
@@ -117,6 +118,19 @@ class NotificationsProcessCommand extends BaseCommand
     {
         $field = preg_replace(['/\-/', '/\x20+/', '/[^\w\d\x20]/i'], [' ', ' ', ''], strtolower($field));
         return $this->stringContains($field, $words);
+    }
+
+    private function filterFieldByRegexp(string $field, array $expressions): bool
+    {
+        $match = false;
+        foreach ($expressions as $expression) {
+            if (preg_match("/{$expression}/", $field) === 1) {
+                $match = true;
+                break;
+            }
+        }
+
+        return $match;
     }
 
     private function stringContains(string $string, array $matches)
