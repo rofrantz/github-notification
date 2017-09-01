@@ -79,9 +79,9 @@ class NotificationsProcessCommand extends BaseCommand
                     }
 
                     if (
-                        (isset($rule['words']) && $this->filterFieldByWords($field, $rule['words'])) ||
-                        (isset($rule['exact']) && in_array($field, $rule['exact'])) ||
-                        (isset($rule['regexp']) && $this->filterFieldByRegexp($field, $rule['regexp']))
+                        (isset($rule['words']) && $this->filterFieldByWords($field, (array)$rule['words'])) ||
+                        (isset($rule['exact']) && in_array($field, (array)$rule['exact'])) ||
+                        (isset($rule['regexp']) && $this->filterFieldByRegexp($field, (array)$rule['regexp']))
                     ) {
                         foreach ($rule['actions'] as $action) {
                             $actions[] = $action;
