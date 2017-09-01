@@ -66,9 +66,10 @@ class NotificationsProcessCommand extends BaseCommand
     {
         $actions = [];
         $notificationRepo = $notification['repository']['name'];
+
         foreach ($rulesByRepository as $repo) {
             $currentRepo = key($repo);
-            if (in_array($notificationRepo, ['all', $currentRepo])) {
+            if (in_array($currentRepo, ['all', $notificationRepo])) {
                 foreach ($repo['rules'] as $rule) {
                     $field = null;
                     switch ($rule['by']) {
