@@ -26,9 +26,9 @@ class NotificationService
         return $currentUser->notifications();
     }
 
-    public function getAll():array
+    public function getAll(array $params = []):array
     {
-        return $this->getNotificationsApi()->all();
+        return $this->getNotificationsApi()->all($params);
     }
 
     public function markAsRead($id, array $params = [])
