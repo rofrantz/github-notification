@@ -2,6 +2,7 @@
 
 namespace GitHub\Command;
 
+use Github\ResultPager;
 use GitHub\Service\NotificationService;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -31,38 +32,38 @@ class NotificationsProcessCommand extends BaseCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $page = 0;
+        $limit = 1;
 
-        do {
-            $params = ['page' => $page];
-            $notifications = $this->notificationService->getAll($params);
+        $params = [['page' => $page, 'per_page' => $limit]];
 
-            $count = count($notifications);
-            if ($count) {
-                $rulesByRepository = $this->getRulesByRepository();
-                $processed = 0;
-                foreach ($notifications as $notification) {
-                    $actions = $this->takeActionsForNotification($notification, $rulesByRepository);
-                    if ($this->applyActionsForNotification($notification, $actions)) {
-                        $output->writeln("Processed #{$notification['id']} - " .
-                            "{$notification['subject']['title']} " .
-                            "(" . implode(",", $actions) . ") " .
-                            "[{$notification['repository']['name']}]"
-                        );
-                        $processed++;
-                    }
+        $notifications = $this->notificationService->getAll($params);
+
+        $count = count($notifications);
+        if ($count) {
+            $rulesByRepository = $this->getRulesByRepository();
+            $processed = 0;
+            foreach ($notifications as $notification) {
+                $actions = $this->takeActionsForNotification($notification, $rulesByRepository);
+                if ($this->applyActionsForNotification($notification, $actions)) {
+                    $output->writeln("Processed #{$notification['id']} - " .
+                        "{$notification['subject']['title']} " .
+                        "(" . implode(",", $actions) . ") " .
+                        "[{$notification['repository']['name']}]"
+                    );
+                    $processed++;
                 }
-
-                $output->writeln("There were " .
-                    ($count ? "<info>{$processed}</info>/<info>{$count}</info>" : "no") . " " .
-                    "notifications <comment>processed</comment>"
-                );
-
-                $page++;
-
-            } else if ($page === 0) {
-                $output->writeln("<info>There are no unread notifications to be processed ✓</info>");
             }
-        } while ($count > 0);
+
+            $output->writeln("There were " .
+                ($count ? "<info>{$processed}</info>/<info>{$count}</info>" : "no") . " " .
+                "notifications <comment>processed</comment>"
+            );
+
+            $page++;
+
+        } else if ($page === 0) {
+            $output->writeln("<info>There are no unread notifications to be processed ✓</info>");
+        }
     }
 
     private function getRulesByRepository(): array
